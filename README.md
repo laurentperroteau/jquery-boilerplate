@@ -18,15 +18,15 @@ Explication (in french) :
 
 ### Comment fonctionne t-il ?
 
-* Un objet Master contient le fonctionnement du squelette (et hérite de certaines “utilities” de Foundation)
-* Un objet Global propre à chaque projet contiendra les méthodes utile à toute l’application
-* Un objet (un fichier) pour tous les modules et pages que l’on souhaite (ils hériteront des objets Master et Global mais pas des uns les autres)
-* Chaque méthode est initialisable onready, onload, onresize ou onscroll, ainsi que dans les autres script: MyObjet.methodName()
-* Le squelette est orienté “mobile first” et contient la détection des médias queries
+* Un objet _Master_ contient le fonctionnement du squelette (et hérite de certaines [utilities](http://foundation.zurb.com/docs/javascript-utilities.html) de Foundation)
+* Un objet _Global_ propre à chaque projet contiendra les méthodes utile à toute l’application
+* Un objet (un fichier) pour tous les modules et les pages que l’on souhaite (ils hériteront des objets _Master_ et _Global_ mais pas des uns les autres)
+* Chaque méthode est initialisable onready, onload, onresize ou onscroll, ainsi qu'en dehors de ce squelette : _MyObjet.methodName()_
+* Le squelette est orienté _mobile first_ et contient la détection des médias queries
 * Chaque objet est préfixé pour éviter les conflits
 
 ### Dépendances :
 
 * jQuery
-* la base de Foundation (juste le fichier foundation.js de la version 5.3.1), pas les plugins
-un mini bout de CSS (celui des media queries de Foundation)
+* La base de Foundation (juste le fichier foundation.js de la version 5.3.1), pas les plugins
+* Un mini bout de CSS (celui des media queries de Foundation)
