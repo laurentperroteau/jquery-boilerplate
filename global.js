@@ -11,13 +11,13 @@
 // ---------------------- //
 
 // Construction d'un enfant de l'objet Master
-var Global = Object.create(Master);
+window[prefixNamespace + 'Global'] = Object.create( window[prefixNamespace + 'Master'] );
+
+// "o" sera l'alias de l'objet MyGlobal
+o = window[prefixNamespace + 'Global'];
 
 // Garde en mémoire le nom de l'objet
-Global.objName = 'Global';
-
-// "o" sera l'alias de l'objet Global
-o = Global;
+o.objName = prefixNamespace + 'Global';
 
 // Liste des variables (ne sera pas accéssible dans le parent mais si dans ses enfants)
 // o.varProjectName = 'dataVarChild';
@@ -94,5 +94,5 @@ o.centerBackground = function () {
         $back.css('marginLeft', 0);
     }
 };
-//o.initMethod(o.objName, 'centerBackground', 'onload');
-//o.initMethod(o.objName, 'centerBackground', 'onresize');
+o.initMethod(o.objName, 'centerBackground', 'onload');
+o.initMethod(o.objName, 'centerBackground', 'onresize');

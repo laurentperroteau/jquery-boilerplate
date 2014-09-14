@@ -61,10 +61,14 @@ if (!Object.create) {
 }
 
 
+// Ajout un préfix correspondant à mon projet
+var prefixNamespace = 'Mp';
+
+
 // ::: Master ::: //
 // -------------- //
     
-var Master = { 
+window[prefixNamespace + 'Master'] = { 
 
     // Variables de l'objet
     // --------------------
@@ -134,11 +138,12 @@ var Master = {
 };
 
 
-// Garde en mémoire le nom de l'objet
-Master.objName = 'Master';
+// "o" sera l'alias de l'objet Master
+o = window[prefixNamespace + 'Master'];
 
-// "o" sera l'alias de l'objet Global
-o = Master; 
+// Garder en mémoire le nom de l'objet
+o.objName = prefixNamespace + 'Master';
+
 
 
 /**
@@ -148,6 +153,9 @@ o = Master;
  * @see : http://foundation.zurb.com/docs/javascript-utilities.html
  * @todo : remove unnecessary utilities
  */
+if (typeof Foundation === 'undefined')
+    console.log('Attention, foundation.js n\'est pas chargé !');
+
 Foundation.inherit(o, 'S debounce throttle data_options image_loaded random_str');
 
 
@@ -172,15 +180,15 @@ o.initMethod(o.objName, 'getPostionScroll', 'onscroll');
 /**
  *  Détecte si on est sur "tel" device
  *  ==================================
- *  @param   {string}  device => use media queries listed in CSS or ios, ipad, iphon and safari
+ *  @param   {string}  device => pass media queries or device you want to detect
  *  @return  {bolean} 
  */
 o.device = function(device) {
 
     switch ( device) 
     {
-        case 'small':
-            if( matchMedia(Foundation.media_queries.small).matches )
+        case 'onlySmall':
+            if( !matchMedia(Foundation.media_queries.medium).matches )
                 return true;
             break;
         case 'medium':
@@ -193,6 +201,10 @@ o.device = function(device) {
             break;
         case 'large':
             if( matchMedia(Foundation.media_queries.large).matches )
+                return true;
+            break;
+        case 'onlyLarge':
+            if( matchMedia(Foundation.media_queries.medium).matches && matchMedia(Foundation.media_queries.large).matches )
                 return true;
             break;
         case 'xlarge':
@@ -258,15 +270,12 @@ $(window).load() permet de définir les instuctions à exécuter une fois que l�
 
 $(function() { // === $(document).ready()
 
-    Master.callMethod('onready');
+    o.callMethod('onready');
 });
 
 o.cache.$window.on('load', function() {  
 
-    Master.callMethod('onload');
-
-    if( o.device('onlyMedium') )
-        alert('onlyMedium');
+    o.callMethod('onload');
 });
 
 /**
@@ -277,10 +286,10 @@ o.cache.$window.on('load', function() {
  */
 o.cache.$window.on('resize', Foundation.utils.throttle(function(e){
 
-    Master.callMethod('onresize');
+    o.callMethod('onresize');
 }, 150));
 
 o.cache.$window.on('scroll', function() {  
 
-    Master.callMethod('onscroll');
+    o.callMethod('onscroll');
 });

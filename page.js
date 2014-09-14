@@ -1,13 +1,13 @@
 
-// ::: Page (sera un nouveau fichier JS) ::: //
+// ::: MyPage (sera un nouveau fichier JS) ::: //
 // ----------------------------------------- //
 
 // Convention de nommage: @see envieDeFraises.master
 // Méthodologie et arborescence: @see envieDeFraises.global
 
-var Page = Object.create(Global);
-Page.objName = 'Page';
-o = Page;
+window[prefixNamespace + 'Page'] = Object.create( window[prefixNamespace + 'Global'] );
+o = window[prefixNamespace + 'Page'];
+o.objName = prefixNamespace + 'Page';
 
 // Liste des variables (ne sera pas accéssible dans les parents)
 // o.$elemHomeSlider = null;
