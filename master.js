@@ -91,6 +91,18 @@ window[prefixNamespace + 'Master'] = {
     cache:    {
         $window: $(window)
     }, 
+    
+    // Vérifie que la variable caché éxiste et n'est pas null
+    isCached: function(varName) {
+
+        if( cache[varName] !== undefined )
+                if( cache[varName].length )
+                    return true;
+                else
+                    this.consoleDegug('L\'objet '+ varName +' est null', red);
+        else
+                this.consoleDegug('La variable '+ varName +' n\a pas été caché', red);
+    },
 
     // Permet d'appeler lors d'un évenement (onload, onresize...) toutes les méthodes listé dans l'array correspondante
     callMethod: function(nameArrayOfMethod) {
