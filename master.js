@@ -159,7 +159,7 @@ if (typeof Foundation === 'undefined')
 Foundation.inherit(o, 'S debounce throttle data_options image_loaded random_str');
 
 
-// Save sizes in globals variables
+// Cacher la taille de la fenêtre en cache (sera actualisé au resize)
 o.windowSize = function() {
 
     o.wWind = o.cache.$window.width();
@@ -168,7 +168,7 @@ o.windowSize = function() {
 o.initMethod(o.objName, 'windowSize', 'onresize');
 
 
-// Save position scroll in globals variables
+// Cacher la position du scroll (sera actualisé au scroll)
 o.getPostionScroll = function() {
 
     o.posTop = o.cache.$window.scrollTop();
@@ -242,7 +242,7 @@ o.device = function(device) {
 
 
 
-// Custom "console.log" with colors
+// Custom "console.log" avec couleur (active seulement si debug == true)
 o.consoleDegug = function(msj, color, strong) {
 
     if( o.debug)
