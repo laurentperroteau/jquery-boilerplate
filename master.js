@@ -11,10 +11,6 @@
 |       => commence par dollar "$"
 |   variable (variable interne à une fonction)
 |       => en minuscule (ex: var name)
-|   "o" alias de "this" dans les objets enfants
-        (équivalent au "self" qui est déconseillé)
-|       => o.parentMethod()
-|   
 |
 |   Il existe 2 manières d'appeler les méthodes:
 |       - Master.load     
@@ -24,27 +20,6 @@
 
 // Si conflit avec "$", les remplacer tous par "$j":
 // $j = jQuery.noConflict();
-
-/*_________________________________________________________
-|
-|   Liste des objets globales (qui contient des méthodes)
-|__________________________________________________________
-|
-|
-|   Un objet est une variable accésible sur tout le site
-|      (pouvant provenir d'un fichier différent), 
-|      contenant des variables (comme "prenom") ou des 
-|      méthodes comme "load". (ne pas cofondre avec les 
-|      objets jQuery (qui commence par "$")) :
-|   => pour les appeler dans l'objet: this.load()
-|   => pour les appeler en dehors: Master.load()
-|
-|   Une objet hérite de ses parents, donc si besoin 
-|      d'une méthode ou d'une variable d'un objet parent,
-|      "this" fonctionne :
-|   => this.varParent ou plus sûr: o.varParent (o est un alias)
-|
-|__________________________________________________________*/
 
 // Polyfill de Object.create pour IE8 et inf
 if (!Object.create) {
@@ -61,14 +36,10 @@ if (!Object.create) {
 }
 
 
-// Ajout un préfix correspondant à mon projet
-var prefixNamespace = 'Mp';
-
-
 // ::: Master ::: //
 // -------------- //
     
-window[prefixNamespace + 'Master'] = { 
+Master = { 
 
     // Variables de l'objet
     // --------------------
@@ -81,11 +52,13 @@ window[prefixNamespace + 'Master'] = {
     // touch:             Modernizr.touch,
     ie8:               $('html').hasClass('lte9') ? true : false,
 
-    // Array qui contiendront les méthodes et leurs objet à charger au document.ready (ex: Master.windowSize), load, resize et scroll
+    // Array qui contiendra les méthodes et leurs objet à charger au document.ready (ex: Master.windowSize), document.load, document.resize et document.scroll
     onready:  [],
     onload:   [],
     onresize: [],
     onscroll: [],
+
+    objName: 'Master',
 
     // Où cacher les élements et variables
     cache:    {
@@ -95,8 +68,8 @@ window[prefixNamespace + 'Master'] = {
     // Vérifie que la variable caché éxiste et n'est pas null
     isCached: function(varName) {
 
-        if( cache[varName] !== undefined )
-                if( cache[varName].length )
+        if( this.cache[varName] !== undefined )
+                if( this.cache[varName].length )
                     return true;
                 else
                     this.consoleDegug('L\'objet '+ varName +' est null', red);
@@ -121,17 +94,16 @@ window[prefixNamespace + 'Master'] = {
     /**
      * Ajoute la méthode à l'array correspondante (qui servira à charger cette méthode)
      * --------------------------------------------------------------------------------
-     * @param  {string} object => nom de l'objet
      * @param  {string} method => nom de la méthode
      * @param  {string} action => event (load, resize or scroll) ; load par défaut
      */
-    initMethod: function(object, method, action) {
+    initMethod: function(method, action) {
 
-        if( typeof window[object] === 'undefined' )
-           this.consoleDegug('! The object "'+ object +'" doesn\'t exists', 'red');
+        if( typeof window[ this.objName ] === 'undefined' )
+            this.consoleDegug('! The object "'+ this.objName +'" doesn\'t exists', 'red');
 
-        if( typeof window[object][ method ] === 'undefined' )
-           this.consoleDegug('! The method "'+ method +'" doesn\'t exists', 'red');
+        if( typeof window[ this.objName ][ method ] === 'undefined' )
+            this.consoleDegug('! The method "'+ method +'" doesn\'t exists', 'red');
 
         if( typeof action === 'undefined') 
             action = 'onload';
@@ -144,49 +116,28 @@ window[prefixNamespace + 'Master'] = {
             this.consoleDegug('Action should be onready, onload, onresize or onscroll, not "'+ action +'"', 'red');
         }
         else {
-            this[action].push( new Array(object, method) ); // ex: ajoute l'array ['Master', 'methodMaster'] à l'array "loadMethod"
+            this[action].push( new Array(this.objName, method) ); // ex: ajoute l'array ['Master', 'methodMaster'] à l'array "loadMethod"
         }
     }
 };
 
 
-// "o" sera l'alias de l'objet Master
-o = window[prefixNamespace + 'Master'];
+// Met en cache la taille de la fenêtre (sera actualisé au resize)
+Master.windowSize = function() {
 
-// Garder en mémoire le nom de l'objet
-o.objName = prefixNamespace + 'Master';
-
-
-
-/**
- * Add JavaScript Foundation Utilities
- * ===================================
- * @desc: ajout la liste de "utilities" du framework Foundation à l'objet Master
- * @see : http://foundation.zurb.com/docs/javascript-utilities.html
- * @todo : remove unnecessary utilities
- */
-if (typeof Foundation === 'undefined')
-    console.log('Attention, foundation.js n\'est pas chargé !');
-
-Foundation.inherit(o, 'S debounce throttle data_options image_loaded random_str');
-
-
-// Cacher la taille de la fenêtre en cache (sera actualisé au resize)
-o.windowSize = function() {
-
-    o.wWind = o.cache.$window.width();
-    o.hWind = o.cache.$window.height();
+    Master.wWind = Master.cache.$window.width();
+    Master.hWind = Master.cache.$window.height();
 };
-o.initMethod(o.objName, 'windowSize', 'onresize');
+Master.initMethod('windowSize', 'onresize');
 
 
-// Cacher la position du scroll (sera actualisé au scroll)
-o.getPostionScroll = function() {
+// Met en cache la position du scroll (sera actualisé au scroll)
+Master.getPostionScroll = function() {
 
-    o.posTop = o.cache.$window.scrollTop();
-    o.posBottom = o.posTop + o.hWind;
+    Master.posTop = Master.cache.$window.scrollTop();
+    Master.posBottom = Master.posTop + Master.hWind;
 };
-o.initMethod(o.objName, 'getPostionScroll', 'onscroll');
+Master.initMethod('getPostionScroll', 'onscroll');
 
 
 /**
@@ -195,34 +146,10 @@ o.initMethod(o.objName, 'getPostionScroll', 'onscroll');
  *  @param   {string}  device => pass media queries or device you want to detect
  *  @return  {bolean} 
  */
-o.device = function(device) {
+Master.device = function(device) {
 
-    switch ( device) 
+    switch ( device ) 
     {
-        case 'onlySmall':
-            if( !matchMedia(Foundation.media_queries.medium).matches )
-                return true;
-            break;
-        case 'medium':
-            if( matchMedia(Foundation.media_queries.medium).matches )
-                return true;
-            break;
-        case 'onlyMedium':
-            if( matchMedia(Foundation.media_queries.medium).matches && !matchMedia(Foundation.media_queries.large).matches )
-                return true;
-            break;
-        case 'large':
-            if( matchMedia(Foundation.media_queries.large).matches )
-                return true;
-            break;
-        case 'onlyLarge':
-            if( matchMedia(Foundation.media_queries.medium).matches && matchMedia(Foundation.media_queries.large).matches )
-                return true;
-            break;
-        case 'xlarge':
-            if( matchMedia(Foundation.media_queries.xlarge).matches )
-                return true;
-            break;
         case 'ios':
             if( navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ) 
                 return true;
@@ -240,12 +167,17 @@ o.device = function(device) {
                 return true;
             break;
         default: 
-            return false;
+            if( matchMedia( this.mediaQueries[ device ] ).matches )
+                return true;
+            else
+                return false;
+        break;
     }
 };
 
-/** Cette méthode utilise mathcMedia, on peut ainsi utiliser les médias dans le JS
- *  ==============================================================================
+/** Cette méthode précédente utilise mathcMedia, 
+ *      on peut ainsi utiliser les médias queriers dans le JS
+ *  =========================================================
  * @see : https://github.com/paulirish/matchMedia.js
  * @exemple :
  *          if( matchMedia('all and (orientation:landscape)').matches )
@@ -253,21 +185,20 @@ o.device = function(device) {
  */
 
 
-
 // Custom "console.log" avec couleur (active seulement si debug == true)
-o.consoleDegug = function(msj, color, strong) {
+Master.consoleDegug = function(msj, color, strong) {
 
-    if( o.debug)
+    if( Master.debug )
         console.log('%c' + msj, 'color: '+ color);
 };
 
 
 // Console pour IE8 et inf
-o.consoleIE = function(text) {
+Master.consoleIE = function(text) {
 
     var debugId = 'debugIE';
 
-    if( o.ie8 && document.getElementById( debugId ) === null ) 
+    if( Master.ie8 && document.getElementById( debugId ) === null ) 
         $('body').prepend('<div id="'+ debugId +'"><h2><strong>Debug Internet explorer : </strong></h2><ol></ol></div>');
 
     $( document.getElementById( debugId ) ).find('ol').append('<li>'+ text +'</li>');
@@ -282,26 +213,20 @@ $(window).load() permet de définir les instuctions à exécuter une fois que l�
 
 $(function() { // === $(document).ready()
 
-    o.callMethod('onready');
+    Master.callMethod('onready');
 });
 
-o.cache.$window.on('load', function() {  
+Master.cache.$window.on('load', function() {  
 
-    o.callMethod('onload');
+    Master.callMethod('onload');
 });
 
-/**
- * Throttle prevents a function from being executed more than once every n milliseconds
- * ====================================================================================
- * @see : http://foundation.zurb.com/docs/javascript-utilities.html#delay 
- * @demo : (sur autre navigateur que chrome) http://louisremi.github.io/jquery-smartresize/demo/index.html
- */
-o.cache.$window.on('resize', Foundation.utils.throttle(function(e){
+Master.cache.$window.on('resize', function() {  
 
-    o.callMethod('onresize');
-}, 150));
+    Master.callMethod('onresize');
+});
 
-o.cache.$window.on('scroll', function() {  
+Master.cache.$window.on('scroll', function() {  
 
-    o.callMethod('onscroll');
+    Master.callMethod('onscroll');
 });

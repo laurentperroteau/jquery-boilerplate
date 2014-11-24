@@ -1,0 +1,18 @@
+{
+  "name": "jquery-boilerplate",
+  "version": "0.0.1",
+  "homepage": "https://github.com/laurentperroteau/yupik-jquery-boilerplate",
+  "authors": [
+    "laurentperroteau <laurentperroteau@gmail.com>"
+  ],
+  "description": "jQuery boilerplate is a modular, object-oriented JavaScript skeleton using jQuery",
+  "main": "master.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
