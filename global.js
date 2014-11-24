@@ -16,6 +16,7 @@ Global = Object.create( Master );
 // Ajouter le nom de l'objet
 Global.objName = 'Global';
 
+
 // Liste des variables (ne sera pas accéssible dans le parent mais si dans ses enfants)
 // Global.varProjectName = 'dataVarChild';
 // Global.imgPath =        '/grandfrais/charte/base/img/';
@@ -51,6 +52,7 @@ Global.initMethod('initPluginOnReady', 'onready');
  */
 Global.centerBackground = function () {
 
+    // Commencer par la condition
     if( !this.device('onlySmall') )
         return false;
 

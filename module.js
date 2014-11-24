@@ -1,35 +1,26 @@
 
-// ::: MyPage (sera un nouveau fichier JS) ::: //
-// ----------------------------------------- //
+// ::: Module (exemple) ::: //
+// ------------------------ //
 
-// Convention de nommage: @see envieDeFraises.master
-// Méthodologie et arborescence: @see envieDeFraises.global
+// Convention de nommage: @see Master
+// Méthodologie et arborescence: @see Global
 
-window[prefixNamespace + 'Page'] = Object.create( window[prefixNamespace + 'Global'] );
-o = window[prefixNamespace + 'Page'];
-o.objName = prefixNamespace + 'Page';
+Module = Object.create( Global );
+Module.objName = 'Module';
+
 
 // Liste des variables (ne sera pas accéssible dans les parents)
-// o.$elemHomeSlider = null;
+// Module.$elemHomeSlider = null;
 
-// Définition d'une méthode
-o.methodPageLoad = function() {
 
-    // Commencer par la condition
-    if( !$('.testClass').length )
+Module.methodeOnMobile = function() {
+
+    if( !this.device('onlySmall') )
         return false;
 
-    o.consoleIE( o.varProjectName );
+    console.log( 'Méthode de l\objet Module appelé depuis n\'importe ou seulement en mobile' );
 };
-o.initMethod(o.objName, 'methodPageLoad', 'onload'); // Ajout de la méthode à la liste des méthodes à charger onload
 
-// Définition d'une méthode
-o.methodPageResize = function() {
 
-    // Commencer par la condition
-    if( document.getElementById('action') === null )
-        return false;
-
-    o.consoleIE( 'test' );
-};
-o.initMethod(o.objName, 'methodPageResize', 'onresize'); // Ajout de la méthode à la liste des méthodes à charger onload
+// Depuis fichier extérieur
+Module.methodeOnMobile();
