@@ -6,7 +6,7 @@ jQuery Boilerplate
 
 Explication (in french) :
 
-> jQuery boilerplate est un squelette JavaScript modulaire orienté objet utilisant jQuery et le meilleur du framework Foundation.
+> jQuery boilerplate est un squelette JavaScript modulaire orienté objet utilisant jQuery.
 
 <!--jQuery boilerplate is a modular, object-oriented JavaScript skeleton using jQuery. -->
 
