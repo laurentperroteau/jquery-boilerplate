@@ -1,12 +1,12 @@
 
-Yupik jQuery Boilerplate
+jQuery Boilerplate
 ========================
 
 ### Personal experimentation, no guarantee that it works for you
 
 Explication (in french) :
 
-> Yupik jQuery est un squelette JavaScript modulaire orienté objet utilisant jQuery et le meilleur du framework Foundation.
+> jQuery boilerplate est un squelette JavaScript modulaire orienté objet utilisant jQuery et le meilleur du framework Foundation.
 
 <!--jQuery boilerplate is a modular, object-oriented JavaScript skeleton using jQuery. -->
 
@@ -27,7 +27,7 @@ Explication (in french) :
 ### Dépendances :
 
 * [matchMedia.js](https://github.com/paulirish/matchMedia.js/blob/master/matchMedia.js)
-* Vous pouvez utilisez bower pour ceci : ````bower install````
+* Vous pouvez utilisez bower pour ceci l'installer : ````bower install````
 
 ````html
 <script src="bower_components/matchMedia/matchMedia.js"></script>
