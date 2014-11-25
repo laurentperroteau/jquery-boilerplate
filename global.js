@@ -18,8 +18,7 @@ Global.objName = 'Global';
 
 
 // Liste des variables (ne sera pas accéssible dans le parent mais si dans ses enfants)
-// Global.varProjectName = 'dataVarChild';
-// Global.imgPath =        '/grandfrais/charte/base/img/';
+Global.cache.$back = $( document.getElementById('back-img') );
 
 
 // Ajouter la meme liste de media-queries que dans le le CSS
@@ -37,7 +36,6 @@ Global.mediaQueries = {
  */
 Global.initPluginOnReady = function () {
 
-    // exemple
     if( jQuery().placeholder )
         $('input[placeholder]').placeholder();
         
@@ -56,17 +54,21 @@ Global.centerBackground = function () {
     if( !this.device('onlySmall') )
         return false;
 
-    var $back = $( document.getElementById('back-img') ),
-        backSize = this.device('onlyMedium') ? 750 : 1490, 
-        decalage;
+    // On vérifie que la variable est bien en cache
+    //     avant de l'utiliser
+    if( this.isCached('$back') )
+    {   
+        var backSize = this.device('onlyMedium') ? 750 : 1490, 
+            decalage;
 
-    if( backSize >= this.wWind ) 
-    {
-        decalage = ( this.wWind - backSize) / 2;
-        $back.css('marginLeft', decalage);
-    }
-    else {
-        $back.css('marginLeft', 0);
+        if( backSize >= this.wWind ) 
+        {
+            decalage = ( this.wWind - backSize) / 2;
+            this.cache.$back.css('marginLeft', decalage);
+        }
+        else {
+            this.cache.$back.css('marginLeft', 0);
+        }
     }
 };
 Global.initMethod('centerBackground', 'onload');

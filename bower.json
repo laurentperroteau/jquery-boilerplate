@@ -14,5 +14,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "matchMedia": "git://github.com/paulirish/matchMedia.js.git#~0.2.0"
+  }
 }

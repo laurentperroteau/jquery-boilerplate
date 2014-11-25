@@ -69,12 +69,9 @@ Master = {
     isCached: function(varName) {
 
         if( this.cache[varName] !== undefined )
-                if( this.cache[varName].length )
-                    return true;
-                else
-                    this.consoleDegug('L\'objet '+ varName +' est null', red);
+            return true;
         else
-                this.consoleDegug('La variable '+ varName +' n\a pas été caché', red);
+            this.consoleDegug('La variable '+ varName +' n\a pas été caché', 'red');
     },
 
     // Permet d'appeler lors d'un évenement (onload, onresize...) toutes les méthodes listé dans l'array correspondante
