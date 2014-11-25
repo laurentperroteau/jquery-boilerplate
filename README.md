@@ -20,7 +20,7 @@ Explication (in french) :
 
 * Un objet _Master_ contient le fonctionnement du squelette
 * Un objet _Global_ propre à chaque projet contiendra les méthodes utile à toute l’application
-* Un objet (un fichier) pour tous les modules et les pages que l’on souhaite. Iils hériteront des objets _Master_ et _Global_ mais pas des uns les autres (mais vous pouvez créer un submodule qui rérite de son parent)
+* Un objet (un fichier) pour tous les modules et les pages que l’on souhaite. Ils hériteront des objets _Master_ et _Global_ mais pas des uns les autres (mais vous pouvez créer un submodule qui rérite de son parent)
 * Chaque méthode est initialisable onready, onload, onresize ou onscroll, ainsi qu'en dehors de ce squelette : _MyObjet.methodName()_
 * Le squelette est orienté _mobile first_ et contient la détection des médias queries
 
