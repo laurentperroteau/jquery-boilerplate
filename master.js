@@ -190,7 +190,7 @@ Master.consoleDegug = function(msj, color, strong) {
 };
 
 
-// Console pour IE8 et inf
+// Console pour IE8-
 Master.consoleIE = function(text) {
 
     var debugId = 'debugIE';

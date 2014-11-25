@@ -3,8 +3,6 @@
 // |____ Global
 //      |
 //      |____ Mobule
-//      |
-//      |____ Page
 
 
 // ::: Nom du projet  ::: //

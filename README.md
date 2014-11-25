@@ -28,3 +28,12 @@ Explication (in french) :
 
 * [matchMedia.js](https://github.com/paulirish/matchMedia.js/blob/master/matchMedia.js)
 * Vous pouvez utilisez bower pour ceci : ````bower install````
+
+````html
+<script src="bower_components/matchMedia/matchMedia.js"></script>
+<script src="jquery-1.10.2.min.js"></script>
+<script src="helpers.js"></script>
+<script src="master.js"></script>
+<script src="global.js"></script>
+<script src="module.js"></script>
+````
