@@ -27,7 +27,7 @@ Explication (in french) :
 ### Dépendances :
 
 * [matchMedia.js](https://github.com/paulirish/matchMedia.js/blob/master/matchMedia.js)
-* Vous pouvez utilisez bower pour ceci l'installer : ````bower install````
+* Vous pouvez utilisez bower pour l'installer : ````bower install````
 
 ````html
 <script src="bower_components/matchMedia/matchMedia.js"></script>
