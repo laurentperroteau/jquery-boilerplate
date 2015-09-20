@@ -5,7 +5,7 @@
 |
 |   Objet
 |       => commence par une Majuscules (ex: "Master") 
-|   method (une méthode est une fonction d'un objet global)
+|   method (une méthode est une fonction d'un objet)
 |       => en minuscule (ex: "load")
 |   $objet (objet jQuery)
 |       => commence par dollar "$"
