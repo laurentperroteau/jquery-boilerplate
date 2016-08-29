@@ -6,9 +6,19 @@ jQuery Boilerplate
 
 Explication (in french) :
 
-> jQuery boilerplate est un squelette JavaScript modulaire orienté objet utilisant jQuery.
+> jQuery boilerplate est un squelette JavaScript (jQuery est utilisé pour manipuler le DOM).
 
 <!--jQuery boilerplate is a modular, object-oriented JavaScript skeleton using jQuery. -->
+
+```
+AVERTISSEMENT : 
+- le pattern est modulaire, orienté objet et global (tout est "public")
+- les objets (classes) ne sont pas encapsulés, elles sont globales (accessibles partout) 
+    mais préfixées (équivalent d'un namespace)
+- les méthodes et variables précédées seront donc aussi accessibles globalement  
+- le pattern n'est pas adapté pour des applications JS complexe 
+    (au-delà de la manipulation de DOM, initialisation de plugin etc...)
+```
 
 ### Quels avantages ?
 
